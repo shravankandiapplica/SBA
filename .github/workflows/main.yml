@@ -3,8 +3,8 @@ name: Deploy integration branch to integration and staging/uat orgs
 
 # Definition when the workflow should run
 on:
-    commit:
-      branches: [ main ]
+    push:
+      branches: main
       paths:
         - 'force-app/**'
             
