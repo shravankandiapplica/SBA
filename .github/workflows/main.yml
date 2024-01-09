@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repo2
+        uses: actions/checkout@v3
+      - run: npm install sfdx-cli -g 
+      #- name: Install sfdxGit delta
+       # run: |
+        #  echo y | sfdx plugins:install sfdx-git-delta        
+      - name: Create server key file gen
+        run: echo "${{ secrets.SECRET_KEY }}" > server.key
+      - run: sfdx force:auth:jwt:grant --clientid=${{ secrets.CLIENT_ID }} --instanceurl=${{ secrets.SFDX_INTEGRATION_URL }} --jwtkeyfile=server.key --username=${{ secrets.USERNAME }} --setdefaultdevhubusername
+ 
+      #- run: sfdx sgd:source:delta --to "HEAD" --from 5c75f87faf6fd2e4a0368b3194a54d3a8059fa16 --output . --generate-delta
+ 
+      #- run: sfdx force:source:deploy  -x manifest/package.xml -u=${{ secrets.SALESFORCE_DEVHUB_USERNAME_POC }}
+      #- run: sfdx force:source:deploy --sourcepath force-app/main/default/classes/MySampleApexClass.cls --json --loglevel trace -u=${{ secrets.USERNAME }}
+      - run: sfdx force:source:deploy -p force-app -u=${{ secrets.USERNAME }} -w 10
