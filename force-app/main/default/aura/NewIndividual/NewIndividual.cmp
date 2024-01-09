@@ -1,0 +1,4 @@
+<!-- auraComponent.cmp file -->
+<aura:component implements="lightning:actionOverride">
+   <c:buttonComponent name="buttonComponent" />
+</aura:component>

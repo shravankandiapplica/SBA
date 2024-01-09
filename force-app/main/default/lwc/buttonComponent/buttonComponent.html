@@ -1,0 +1,31 @@
+<template>
+    <template if:true={isModalOpen}>
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add New Individual</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <lightning-input label="First Name" value={firstname} onchange={handleFNameChange} required></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-input label="Phone" type="tel" value={phone} onchange={handlePhoneChange} required></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <lightning-input label="Last Name" value={lastname} onchange={handleLNameChange} required></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-input label="Email" type="email" value={email} onchange={handleEmailChange} required></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Save" onclick={handleSave}></lightning-button>
+                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                </footer>
+            </div>
+    </template>
+</template>

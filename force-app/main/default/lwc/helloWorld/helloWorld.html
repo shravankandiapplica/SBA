@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="HelloWorld" icon-name="custom:custom14">
+      <div class="slds-m-around_medium">
+        <p>Hello, {greeting}!</p>
+        <lightning-input label="Name" value={greeting} onchange={changeHandler}></lightning-input>
+        <lightning-button label="Open Modal" onclick={openModal} variant="brand"></lightning-button>
+        <lightning-modal if:true={isModalOpen} onclose={closeModal}>
+        <div class="slds-modal__content slds-p-around_medium">
+          <lightning-input label="Input 1" value={inputValue1} onchange={handleInputChange1}></lightning-input>
+          <lightning-input label="Input 2" value={inputValue2} onchange={handleInputChange2}></lightning-input>
+          <!-- Add more lightning-input elements for additional inputs -->
+      </div>
+  </lightning-modal>
+      </div>
+    </lightning-card>
+  </template>
