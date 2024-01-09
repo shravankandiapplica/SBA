@@ -49,8 +49,19 @@ jobs:
                   sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/
 
             # Authenticate to org
-            - name: 'Authenticate to Integration Org'
-              run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
+      #      - name: 'Authenticate to Integration Org'
+      #        run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
+
+      - name: 'SFDX Aut'
+    env:
+         SFDX_JWT_KEY: ${{ secrets.SECRET_KEY }}
+         SFDX_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+         YOUR_USER_NAME: ${{ secrets.USERNAME }}
+ run: |
+         echo "${SFDX_JWT_KEY}" > server.key
+         npx sfdx force:auth:jwt:grant --client-id "${SFDX_CLIENT_ID}" --jwt-key-file server.key --username [YOUR_USER_NAME] -a sf-connection
+         npx sfdx force:org:display --json -u [YOUR_USER_NAME] > sfdx-auth.json
+         rm server.keyh
 
             - name: 'Deploy the entire branch to Integration org'
               run: sfdx force:source:deploy -p force-app --testlevel RunLocalTests --json
