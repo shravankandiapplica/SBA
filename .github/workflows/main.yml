@@ -53,15 +53,14 @@ jobs:
       #        run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
 
       - name: 'SFDX Aut'
+    - shell: bash
     env:
-         SFDX_JWT_KEY: ${{ secrets.SECRET_KEY }}
-         SFDX_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-         YOUR_USER_NAME: ${{ secrets.USERNAME }}
- run: |
-         echo "${SFDX_JWT_KEY}" > server.key
-         npx sfdx force:auth:jwt:grant --client-id "${SFDX_CLIENT_ID}" --jwt-key-file server.key --username [YOUR_USER_NAME] -a sf-connection
-         npx sfdx force:org:display --json -u [YOUR_USER_NAME] > sfdx-auth.json
-         rm server.keyh
+            YOUR_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+            SALESFORCE_USERNAME: ${{ secrets.USERNAME }}
+            SERVER_KEY: ${{ secrets.SECRET_KEY }}
+      
+        sfdx force:auth:jwt:grant --clientid YOUR_CLIENT_ID --jwtkeyfile SERVER_KEY --username SALESFORCE_USERNAME --setdefaultdevhubusername -a HubOrg
+
 
             - name: 'Deploy the entire branch to Integration org'
               run: sfdx force:source:deploy -p force-app --testlevel RunLocalTests --json
