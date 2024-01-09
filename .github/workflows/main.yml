@@ -19,5 +19,5 @@ jobs:
       #- run: sfdx sgd:source:delta --to "HEAD" --from 5c75f87faf6fd2e4a0368b3194a54d3a8059fa16 --output . --generate-delta
  
       #- run: sfdx force:source:deploy  -x manifest/package.xml -u=${{ secrets.SALESFORCE_DEVHUB_USERNAME_POC }}
-      - run: sfdx force:source:deploy --sourcepath force-app/main/default/classes/MySampleApexClass.cls --json --loglevel trace -u=${{ secrets.USERNAME }}
-
+      #- run: sfdx force:source:deploy --sourcepath force-app/main/default/classes/MySampleApexClass.cls --json --loglevel trace -u=${{ secrets.USERNAME }}
+      - run: sfdx force:source:deploy -p force-app -u DevHub -w 10
